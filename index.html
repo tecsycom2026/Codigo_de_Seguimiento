@@ -72,7 +72,7 @@
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <p class="step-text">Si <strong>no recibiste</strong> ningún mensaje, notifícanos por favor.</p>
+        <p class="step-text">Si <strong>no recibiste</strong> ningún mensaje, notifícanos usando el botón al final de esta página.</p>
       </div>
     </div>
   </div>
@@ -84,7 +84,7 @@
     <p class="example-label">Ejemplo del mensaje que recibiste</p>
     <div class="bubble">
       <p class="bubble-name">Hola LUCAS MARTÍNEZ 👋</p>
-      <p class="bubble-body">Tu instalación del servicio <strong>Fibra 800 Mbps - Norte</strong> fue programada para el día <strong id="fecha-instalacion">30 de JUNIO</strong> en el horario <strong>08:00 - 12:00</strong>.</p>
+      <p class="bubble-body">Tu instalación del servicio <strong>Fibra 800 Mbps - Norte</strong> fue programada para el día <strong id="fecha-instalacion">30 de JUNIO</strong> en el horario <strong id="horario-instalacion">08:00 - 12:00</strong>.</p>
       <p class="bubble-body">Para consultar el estado de tu instalación ingresa a:</p>
       <p class="bubble-link">https://go.perufibra.pe/seguimiento/709f5c1a6eb611f1a7a842010a304004</p>
       <p class="bubble-code">Código de seguimiento: <strong>4827</strong></p>
@@ -124,10 +124,22 @@
   var ahora = new Date();
   var utcMs = ahora.getTime() + ahora.getTimezoneOffset() * 60000;
   var peru  = new Date(utcMs + (-5 * 3600000));
-  // +1 día (la fecha que se muestra es mañana)
-  peru.setDate(peru.getDate() + 1);
+
+  // Fecha de hoy según hora Perú
   var texto = peru.getDate() + ' de ' + meses[peru.getMonth()];
   document.getElementById('fecha-instalacion').textContent = texto;
+
+  // Horario dinámico según tramo horario Perú
+  var hora = peru.getHours();
+  var horario;
+  if (hora < 12) {
+    horario = '08:00 - 12:00';
+  } else if (hora < 16) {
+    horario = '12:00 - 16:00';
+  } else {
+    horario = '16:00 - 20:00';
+  }
+  document.getElementById('horario-instalacion').textContent = horario;
 })();
 </script>
 </body>
